@@ -62,26 +62,6 @@ build scripts and documentation.
 Proceed at your own risk. This is unofficial, community-driven work with no
 warranty of any kind.
 
-### Known risks in upstream `kali-pinephone/build.sh` (unmodified, not our code)
-
-A security review of this repo flagged the following in the unmodified
-upstream script — noted here for anyone running it, without altering the
-original file:
-
-- **Remote code execution / supply chain**: the script pipes a remote setup
-  script straight into a shell (`curl ... https://repo.fossfrog.in/setup.sh
-  | sh`) with no integrity check. Anyone who compromises that host can run
-  arbitrary code in the built image.
-- **MITM risk**: the Mobian APT signing key is fetched over **plain HTTP**
-  (`http://repo.mobian.org/mobian.gpg`), and the default Kali mirror
-  (`MIRROR`) is also plain HTTP. A network attacker in a position to
-  intercept these requests could substitute their own key/packages.
-- **Hardcoded default credentials**: `kali` / `8888` (same as the login
-  warning above) are baked into the script as defaults.
-
-These are inherent to the upstream tooling, not something introduced here.
-If you build with this script, review it first and consider vendoring your
-own copies of anything fetched over plain HTTP or piped into a shell.
 
 ---
 
